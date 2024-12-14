@@ -16,13 +16,11 @@ def main():
                 return 
         #checks if user closes the window, and if true quits teh screen
         
-        player.update(dt)
+        player.update(dt) 
 
         screen.fill(color="black") #fills screen in solid black
         player.draw(screen)
         pygame.display.flip() #refreshes the screen
-        
-
 
         dt = clock.tick(60)/1000 #uses clock objet to set max framerate to 60fps
         #tick method returns the delta time in milliseconds -> store it in dt in seconds
