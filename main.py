@@ -1,7 +1,7 @@
 import pygame
+import sys
 from constants import *
 from player import Player
-from circleshape import CircleShape
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 
@@ -11,7 +11,7 @@ def main():
     dt = 0 #delta time (time between frames)
     clock = pygame.time.Clock() #clock object
     
-    updatable = pygame.sprite.Group()
+    updatable = pygame.sprite.Group() 
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
@@ -29,7 +29,13 @@ def main():
         
         for obj in updatable:
             obj.update(dt)
-         
+        
+        print([type(a) for a in asteroids]) 
+        print(type(player))
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                print("Game over!")
+                sys.exit()
 
         screen.fill(color="black") #fills screen in solid black
         
