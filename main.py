@@ -12,8 +12,8 @@ def main():
     dt = 0 #delta time (time between frames)
     clock = pygame.time.Clock() #clock object
     
-    updatable = pygame.sprite.Group() 
-    drawable = pygame.sprite.Group()
+    updatable = pygame.sprite.Group() #all objetcs that move or have a value changed
+    drawable = pygame.sprite.Group() #all objects shown in screen
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
@@ -33,10 +33,16 @@ def main():
         for obj in updatable:
             obj.update(dt)
         
-        for asteroid in asteroids:
+        for asteroid in asteroids: #check if player´s "circle" collides with asteroid
             if asteroid.collides_with(player):
                 print("Game over!")
                 sys.exit()
+            
+            for shot in shots: #Check if any shot hits an asteroid
+                if asteroid.collides_with(shot):
+                    shot.kill() #.kill() removes object from all groups
+                    #not drawn or updated anymore therefore
+                    asteroid.split() # .kill small ones while dividing medium and large ones
 
         screen.fill(color="black") #fills screen in solid black
         
